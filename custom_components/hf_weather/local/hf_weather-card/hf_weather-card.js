@@ -183,29 +183,29 @@ const locale = {
         <div class="header">
           <div style="align-items: baseline;">
             <div style="align-items: center;">
-              [[weatherObj.attributes.condition_cn]]
-              <template is="dom-if" if="[[weatherObj.attributes.aqi]]">
-                <div class$ = "aqi [[aqiLevel(weatherObj.attributes.aqi.aqi)]]">[[roundNumber(weatherObj.attributes.aqi.aqi)]]</div>
+              ${this.weatherObj.attributes.condition_cn}
+              <template is="dom-if" if="${this.weatherObj.attributes.aqi}">
+                <div class$ = "aqi ${this.aqiLevel(weatherObj.attributes.aqi.aqi)}">${this.roundNumber(weatherObj.attributes.aqi.aqi)}</div>
               </template>
             </div>
-            <div class="title">[[title]]</div>
+            <div class="title">${this.title}</div>
           </div>
           <div class="time">
             <ha-icon icon="mdi:update"></ha-icon>
-            <div style="margin: 0 0 0 5px">[[weatherObj.attributes.update_time]]</div>
+            <div style="margin: 0 0 0 5px">${this.weatherObj.attributes.update_time}</div>
           </div>
         </div>
         <div class="card">
           <div class="now">
             <div class="main">
-              <i class="icon bigger" style="background: none, url([[getWeatherIcon(weatherObj.state)]]) no-repeat; background-size: contain;"></i>
-              <template is="dom-if" if="[[tempObj]]">
-                <div on-click="_tempAttr">[[roundNumber(tempObj.state)]]<sup>[[getUnit('temperature')]]</sup></div>
+              <i class="icon bigger" style="background: none, url(${this.getWeatherIcon(weatherObj.state)}) no-repeat; background-size: contain;"></i>
+              <template is="dom-if" if="${this.tempObj}">
+                <div on-click="_tempAttr">${this.roundNumber(tempObj.state)}<sup>${this.getUnit('temperature')}</sup></div>
               </template>
-              <template is="dom-if" if="[[!tempObj]]">
-                <div on-click="_weatherAttr">[[roundNumber(weatherObj.attributes.temperature)]]<sup>[[getUnit('temperature')]]</sup></div>
+              <template is="dom-if" if="${!this.tempObj}">
+                <div on-click="_weatherAttr">${this.roundNumber(weatherObj.attributes.temperature)}<sup>${this.getUnit('temperature')}</sup></div>
               </template>
-              <template is="dom-if" if="[[weatherObj.attributes.alarm]]">
+              <template is="dom-if" if="${this.weatherObj.attributes.alarm}">
                 <div class="alarm" on-click="_weatherAttr">
                   台风预警
                 </div>
@@ -214,57 +214,57 @@ const locale = {
 
             <div class="suggestion" on-click="_weatherAttr">
               <div>
-                <span> 舒适：[[getSuggestion("comf")]]</span><br>
-                <span> 穿衣：[[getSuggestion("drsg")]]</span><br>
-                <span> 空气：[[getSuggestion("air")]]</span><br>
-                <span> 感冒：[[getSuggestion("flu")]]	</span><br>
+                <span> 舒适：${this.getSuggestion("comf")}</span><br>
+                <span> 穿衣：${this.getSuggestion("drsg")}</span><br>
+                <span> 空气：${this.getSuggestion("air")}</span><br>
+                <span> 感冒：${this.getSuggestion("flu")}	</span><br>
               </div>
               <div>
-                <span> 紫外：[[getSuggestion("uv")]]</span><br>
-                <span> 运动：[[getSuggestion("sport")]]</span><br>
-                <span> 旅游：[[getSuggestion("trav")]]</span><br>
-                <span> 洗车：[[getSuggestion("cw")]]</span><br>
+                <span> 紫外：${this.getSuggestion("uv")}</span><br>
+                <span> 运动：${this.getSuggestion("sport")}</span><br>
+                <span> 旅游：${this.getSuggestion("trav")}</span><br>
+                <span> 洗车：${this.getSuggestion("cw")}</span><br>
               </div>
             </div>
           </div>
           <div class="attributes">
             <div on-click="_weatherAttr">
-              <ha-icon icon="hass:water-percent"></ha-icon> [[roundNumber(weatherObj.attributes.humidity)]] %<br>
-              <ha-icon icon="hass:gauge"></ha-icon> [[roundNumber(weatherObj.attributes.pressure)]] [[ll('uPress')]]
+              <ha-icon icon="hass:water-percent"></ha-icon> ${this.roundNumber(weatherObj.attributes.humidity)} %<br>
+              <ha-icon icon="hass:gauge"></ha-icon> ${this.roundNumber(weatherObj.attributes.pressure)} ${this.ll('uPress')}
             </div>
             <div on-click="_sunAttr">
-              <template is="dom-if" if="[[sunObj]]">
-                <ha-icon icon="mdi:weather-sunset-up"></ha-icon> [[computeTime(sunObj.attributes.next_rising)]]<br>
-                <ha-icon icon="mdi:weather-sunset-down"></ha-icon> [[computeTime(sunObj.attributes.next_setting)]]
+              <template is="dom-if" if="${this.sunObj}">
+                <ha-icon icon="mdi:weather-sunset-up"></ha-icon> ${this.computeTime(sunObj.attributes.next_rising)}<br>
+                <ha-icon icon="mdi:weather-sunset-down"></ha-icon> ${this.computeTime(sunObj.attributes.next_setting)}
               </template>
             </div>
             <div on-click="_weatherAttr">
-              <ha-icon icon="hass:[[getWindDirIcon(windBearing)]]"></ha-icon> [[getWindDir(windBearing)]]<br>
-              <ha-icon icon="hass:weather-windy"></ha-icon> [[computeWind(weatherObj.attributes.wind_speed)]] [[ll('uSpeed')]]
+              <ha-icon icon="hass:${this.getWindDirIcon(windBearing)}"></ha-icon> ${this.getWindDir(windBearing)}<br>
+              <ha-icon icon="hass:weather-windy"></ha-icon> ${this.computeWind(weatherObj.attributes.wind_speed)} ${this.ll('uSpeed')}
             </div>
           </div>
-          <template is="dom-if" if="[[hourlyForecast]]">
+          <template is="dom-if" if="${this.hourlyForecast}">
           <div class="chart-title">天气预报-小时</div>
-            <ha-chart-base chart-type="[[HourlyForecastChartData.type]]" data="[[HourlyForecastChartData.data]]" options="[[HourlyForecastChartData.options]]" hass="[[_hass]]"></ha-chart-base>
+            <ha-chart-base chart-type="${this.HourlyForecastChartData.type}" data="${this.HourlyForecastChartData.data}" options="${this.HourlyForecastChartData.options}" hass="${this._hass}"></ha-chart-base>
             <div class="conditions">
-              <template is="dom-repeat" items="[[hourlyForecast]]">
+              <template is="dom-repeat" items="${this.hourlyForecast}">
                 <div>
-                  <i class="icon" style="background: none, url([[getWeatherIcon(item.condition)]]) no-repeat; background-size: contain;"></i>
+                  <i class="icon" style="background: none, url(${this.getWeatherIcon(item.condition)}) no-repeat; background-size: contain;"></i>
 
-                  <div style="text-align: center;">[[computeProbablePrecipitation(item.probable_precipitation)]]</div>
+                  <div style="text-align: center;">${this.computeProbablePrecipitation(item.probable_precipitation)}</div>
                 </div>
               </template>
             </div>
           </template>
-          <template is="dom-if" if="[[dailyForecast]]">
+          <template is="dom-if" if="${this.dailyForecast}">
             <div class="chart-title">天气预报-天</div>
-            <ha-chart-base chart-type="[[DailyForecastChartData.type]]" data="[[DailyForecastChartData.data]]" options="[[DailyForecastChartData.options]]" hass="[[_hass]]"></ha-chart-base>
+            <ha-chart-base chart-type="${this.DailyForecastChartData.type}" data="${this.DailyForecastChartData.data}" options="${this.DailyForecastChartData.options}" hass="${this._hass}"></ha-chart-base>
             <div class="conditions">
-              <template is="dom-repeat" items="[[dailyForecast]]">
+              <template is="dom-repeat" items="${this.dailyForecast}">
                 <div>
-                  <i class="icon" style="background: none, url([[getWeatherIcon(item.condition)]]) no-repeat; background-size: contain;"></i>
+                  <i class="icon" style="background: none, url(${this.getWeatherIcon(item.condition)}) no-repeat; background-size: contain;"></i>
 
-                  <div style="text-align: center;">[[computeProbablePrecipitation(item.probable_precipitation)]]</div>
+                  <div style="text-align: center;">${this.computeProbablePrecipitation(item.probable_precipitation)}</div>
                 </div>
               </template>
             </div>
