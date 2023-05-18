@@ -151,7 +151,7 @@ const locale = {
           城市
         </div>
         <div>
-          [[stateObj.attributes.city]]
+          ${this.stateObj.attributes.city}
         </div>
       </div>
       <div class="flex">
@@ -160,85 +160,85 @@ const locale = {
           温度
         </div>
         <div>
-          [[stateObj.attributes.temperature]] [[getUnit('temperature')]]
+          ${this.stateObj.attributes.temperature} ${this.getUnit('temperature')}
         </div>
       </div>
-      <template is="dom-if" if="[[_showValue(stateObj.attributes.pressure)]]">
+      <template is="dom-if" if="${this._showValue(stateObj.attributes.pressure)}">
         <div class="flex">
           <ha-icon icon="hass:gauge"></ha-icon>
           <div class="main">
             气压
           </div>
           <div>
-            [[stateObj.attributes.pressure]] [[getUnit('air_pressure')]]
+            ${this.stateObj.attributes.pressure} ${this.getUnit('air_pressure')}
           </div>
         </div>
       </template>
-      <template is="dom-if" if="[[_showValue(stateObj.attributes.humidity)]]">
+      <template is="dom-if" if="${this._showValue(stateObj.attributes.humidity)}">
         <div class="flex">
           <ha-icon icon="hass:water-percent"></ha-icon>
           <div class="main">
             湿度
           </div>
-          <div>[[stateObj.attributes.humidity]] %</div>
+          <div>${this.stateObj.attributes.humidity} %</div>
         </div>
       </template>
-      <template is="dom-if" if="[[_showValue(stateObj.attributes.wind_speed)]]">
+      <template is="dom-if" if="${this._showValue(stateObj.attributes.wind_speed)}">
         <div class="flex">
           <ha-icon icon="hass:weather-windy"></ha-icon>
           <div class="main">
             风速
           </div>
           <div>
-            [[computeWind(stateObj.attributes.wind_speed)]] [[ll('uSpeed')]]
+            ${this.computeWind(stateObj.attributes.wind_speed)} ${this.ll('uSpeed')}
           </div>
         </div>
       </template>
-      <template is="dom-if" if="[[_showValue(stateObj.attributes.visibility)]]">
+      <template is="dom-if" if="${this._showValue(stateObj.attributes.visibility)}">
         <div class="flex">
           <ha-icon icon="hass:eye"></ha-icon>
           <div class="main">
             能见度
           </div>
-          <div>[[stateObj.attributes.visibility]] [[getUnit('length')]]</div>
+          <div>${this.stateObj.attributes.visibility} ${this.getUnit('length')}</div>
         </div>
       </template>
 
-      <template is="dom-if" if="[[stateObj.attributes.suggestion]]">
+      <template is="dom-if" if="${this.stateObj.attributes.suggestion}">
       <div class="section">生活指数:</div>
-      <template is="dom-repeat" items="[[stateObj.attributes.suggestion]]">
+      <template is="dom-repeat" items="${this.stateObj.attributes.suggestion}">
         <div class="suggestion_brf">
-          <div>-&nbsp;&nbsp;[[item.title_cn]]</div>
-          <div>[[item.brf]]</div>
+          <div>-&nbsp;&nbsp;${this.item.title_cn}</div>
+          <div>${this.item.brf}</div>
         </div>
-        <div class="suggestion_txt">[[item.txt]]</div>
+        <div class="suggestion_txt">${this.item.txt}</div>
       </template>
 
-      <template is="dom-if" if="[[stateObj.attributes.forecast]]">
+      <template is="dom-if" if="${this.stateObj.attributes.forecast}">
         <div class="section">天气预报:</div>
-        <template is="dom-repeat" items="[[stateObj.attributes.forecast]]">
+        <template is="dom-repeat" items="${this.stateObj.attributes.forecast}">
           <div class="flex">
-            <template is="dom-if" if="[[_showValue(item.condition)]]">
-              <ha-icon icon="[[getWeatherIcon(item.condition)]]"></ha-icon>
+            <template is="dom-if" if="${this._showValue(item.condition)}">
+              <ha-icon icon="${this.getWeatherIcon(item.condition)}"></ha-icon>
             </template>
-            <template is="dom-if" if="[[!_showValue(item.templow)]]">
-              <div class="main">[[computeDateTime(item.datetime)]]</div>
+            <template is="dom-if" if="${!this._showValue(item.templow)}">
+              <div class="main">${this.computeDateTime(item.datetime)}</div>
             </template>
-            <template is="dom-if" if="[[_showValue(item.templow)]]">
-              <div class="main">[[computeDate(item.datetime)]]</div>
+            <template is="dom-if" if="${this._showValue(item.templow)}">
+              <div class="main">${this.computeDate(item.datetime)}</div>
               <div class="templow">
-                [[item.templow]] [[getUnit('temperature')]]
+                ${this.item.templow} ${this.getUnit('temperature')}
               </div>
             </template>
             <div class="temp">
-              [[item.temperature]] [[getUnit('temperature')]]
+              ${this.item.temperature} ${this.getUnit('temperature')}
             </div>
           </div>
         </template>
       </template>
 
       <template is="dom-if" if="stateObj.attributes.attribution">
-        <div class="attribution">[[stateObj.attributes.attribution]]</div>
+        <div class="attribution">${this.stateObj.attributes.attribution}</div>
       </template>
     `;
         }
