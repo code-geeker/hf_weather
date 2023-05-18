@@ -1,3 +1,5 @@
+const LitElement = Object.getPrototypeOf(customElements.get("ha-panel-lovelace"));
+const html = LitElement.prototype.html;
 const locale = {
   'zh-Hans': {
     tempHi: "最高温度",
@@ -32,13 +34,13 @@ const locale = {
 // 延时加载，解决每次界面显示不了的问题
 ; (() => {
   const timer = setInterval(() => {
-    if (Polymer.Element) {
+    if (LitElement) {
       clearInterval(timer);
       // 开始生成DOM元素
-      class WeatherCardChart extends Polymer.Element {
+      class WeatherCardChart extends LitElement {
 
-        static get template() {
-          return Polymer.html`
+        render() {
+          return html`
       <style>
         ha-icon {
           color: var(--paper-item-icon-color);
@@ -121,7 +123,7 @@ const locale = {
           font-size: 16px;
           margin: 15px 0px 5px 0px;
           text-align: center;
-          font-weight: 600; 
+          font-weight: 600;
         }
         .conditions {
           display: flex;
@@ -215,12 +217,12 @@ const locale = {
                 <span> 舒适：[[getSuggestion("comf")]]</span><br>
                 <span> 穿衣：[[getSuggestion("drsg")]]</span><br>
                 <span> 空气：[[getSuggestion("air")]]</span><br>
-                <span> 感冒：[[getSuggestion("flu")]]	</span><br>	
+                <span> 感冒：[[getSuggestion("flu")]]	</span><br>
               </div>
-              <div>          
+              <div>
                 <span> 紫外：[[getSuggestion("uv")]]</span><br>
-                <span> 运动：[[getSuggestion("sport")]]</span><br>	
-                <span> 旅游：[[getSuggestion("trav")]]</span><br>	
+                <span> 运动：[[getSuggestion("sport")]]</span><br>
+                <span> 旅游：[[getSuggestion("trav")]]</span><br>
                 <span> 洗车：[[getSuggestion("cw")]]</span><br>
               </div>
             </div>

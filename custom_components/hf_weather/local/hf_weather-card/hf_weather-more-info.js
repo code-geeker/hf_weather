@@ -1,3 +1,5 @@
+const LitElement = Object.getPrototypeOf(customElements.get("ha-panel-lovelace"));
+const html = LitElement.prototype.html;
 const locale = {
   'zh-Hans': {
     tempHi: "最高温度",
@@ -92,12 +94,12 @@ const locale = {
 // 延时加载，解决每次界面显示不了的问题
 ; (() => {
   const timer = setInterval(() => {
-    if (Polymer.Element) {
+    if (LitElement) {
       clearInterval(timer);
 
-      class MoreInfoWeather extends Polymer.Element {
-        static get template() {
-          return Polymer.html`
+      class MoreInfoWeather extends LitElement {
+        render() {
+          return html`
       <style>
         ha-icon {
           color: var(--paper-item-icon-color);
@@ -354,8 +356,7 @@ const locale = {
       }
 
       customElements.define("hf_weather-more-info", MoreInfoWeather);
-      
+
     }
   }, 1000)
 })();
-
